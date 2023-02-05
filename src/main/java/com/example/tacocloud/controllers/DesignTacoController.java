@@ -1,6 +1,7 @@
 package com.example.tacocloud.controllers;
 
 import com.example.tacocloud.Ingredient;
+import com.example.tacocloud.Ingredient.Type;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -19,7 +21,7 @@ import java.util.List;
 public class DesignTacoController {
 
     @ModelAttribute
-    public void addIngredientsToModel(Model model){
+    public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
@@ -32,15 +34,23 @@ public class DesignTacoController {
                 new Ingredient("SLSA", "Salsa", Type.SAUCE),
                 new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
         );
-        Ingredient.Type[] types = Ingredient.Type.values();
-        for (Ingredient.Type type: types
-             ) {
-            model.addAllAttributes(type.toString().toLowerCase(),
-                    filterByType(ingredients, type));
+        Type[] types = Type.values();
+        for (Type type : types) {
+            model.addAllAttributes(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
+    }
+
+        private Iterable<Ingredient> filterByType (
+                List < Ingredient > ingredients, Type type){
+            return ingredients
+                    .stream()
+                    .filter(x -> x.getType().equals(type))
+                    .collect(Collectors.toList());
+        }
+    }
 
         // page 62
 
 
     }
-}
+
