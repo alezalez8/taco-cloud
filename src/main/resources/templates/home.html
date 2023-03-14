@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-<h1>Hello</h1>
-<h3>Change</h3>
 
-<img th:src="@{/images/TacoCloud.png}">
+
+<body>
+<h1>Welcome to ...</h1>
+<img th:src="@{/images/TacoCloud.png}" alt="picture"/>
+<a th:href="@{/design}" id="design">Design a taco</a>
 
 </body>
 </html>
